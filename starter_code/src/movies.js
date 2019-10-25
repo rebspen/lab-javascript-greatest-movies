@@ -2,11 +2,10 @@
 
 // Iteration 1: All rates average - Get the average of all rates with 2 decimals
 function calculateAverageMovieRate(someArray){
-const sumValues = someArray.reduce((accumulator, value, index, originalArray) => {
+const sumValues = someArray.reduce((accumulator, value) => {
     return (accumulator + value.rate);
   }, 0);
 return sumValues / someArray.length;
-  console.log(calculateAverageMovieRate);
 }
 // Iteration 2: Drama movies - Get the average of Drama Movies
 
@@ -29,7 +28,7 @@ function calculateAverageDramaRate(someArray){
 
 
 function orderByYear(someArray){
-    someArray.sort((a, b) => (a.year > b.year) ? 1 : (a.year === b.year) ? ((a.title > b.title) ? 1 : -1) : -1 )
+    someArray.sort((a, b) => (a.year > b.year) ? 1 : (a.year === b.year) ? ((a.title.toLowerCase() > b.title.toLowerCase()) ? 1 : -1) : -1 )
     return someArray;
 }
 
@@ -50,7 +49,7 @@ const numberOfSS = someArray.filter((value) => {
 
 function orderAlphabetically(someArray){
     someArray.sort((a, b) => (a.title > b.title) ? 1 : -1);
-    const onlyTitles = someArray.map((value, index, originalArray) => {
+    const onlyTitles = someArray.map((value) => {
   return value.title
 });
     const top20 = onlyTitles.slice(0,20);
@@ -61,11 +60,11 @@ function orderAlphabetically(someArray){
 // Iteration 6: Time Format - Turn duration of the movies from hours to minutes
 
 function turnHoursToMinutes(someArray){
-    const transformMins = someArray.map((value, index, originalArray) => {
+    const transformMins = someArray.map((value) => {
     return {duration: value.duration.split(" ")};
 });
 
-   const calculateMins = transformMins.map((value, index, originalArray) => {
+   const calculateMins = transformMins.map((value) => {
     let totalmins = 0;
     for(i = 0; i < value.duration.length ; i++){
     if (value.duration[i].includes("h")){
@@ -74,7 +73,10 @@ function turnHoursToMinutes(someArray){
         totalmins += parseInt(value.duration[i]);
     }
 }
-return {duration: totalmins };
+return {
+  ...someArray,
+  duration: totalmins
+};
 
 });
 console.log(calculateMins);
@@ -85,15 +87,3 @@ turnHoursToMinutes(MOVIES);
 
 // BONUS Iteration: Best yearly rate average - Best yearly rate average
 
-function bestYearAvg(someArray){
-    let year;
-    for (i = 1800 ; i < 2050 ; i++){
-        year = [{year: i, averageMovieRating: 0}]
-    }
-    const addAvgMovieRating = someArray.filter((value) => {
-        for(x in year){
-            if
-        }
-    });
-    
-}
